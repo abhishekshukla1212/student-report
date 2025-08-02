@@ -1,0 +1,7 @@
+services:
+  - type: web
+    name: student-report-card
+    env: python
+    buildCommand: ""
+    startCommand: "python app.py"
+    plan: free

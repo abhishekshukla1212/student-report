@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Report Card</title>
+</head>
+<body>
+    <h2>Report Card for {{ student.name }} (Roll: {{ student.roll }})</h2>
+    <ul>
+        {% for subject, mark in student.marks.items() %}
+            <li>{{ subject }}: {{ mark }}</li>
+        {% endfor %}
+    </ul>
+    <p>Average Marks: {{ average }}</p>
+    <p>Grade: {{ grade }}</p>
+    <a href="/">← Go back</a>
+</body>
+</html>
