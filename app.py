@@ -7,7 +7,7 @@ app = Flask(__name__)
 client = MongoClient("mongodb+srv://Abhishek:Abhi%4012345@student-report.i3gmep4.mongodb.net/?retryWrites=true&w=majority&appName=student-report")
 
 db = client["School"]
-students_collection = db["students"]
+students_collection = db["Students"]
 
 @app.route('/')
 def index():
