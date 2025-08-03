@@ -1,32 +1,31 @@
-# 🧾 Student Report Card Web App
+# 📝 Student Report Card Web App
 
-A simple and functional Flask-based web application to generate student report cards from user input.  
-This project lets users enter student details, subjects, and marks — and generates a report card with calculated averages and grades.
+A full-stack web application built using **Flask** and **MongoDB Atlas** that allows users to enter student details, store them in the cloud, and generate report cards with grades.
 
----
-
-## 🚀 Live Demo
-
-👉 [Click here to try the live app](https://student-report-h0r8.onrender.com)
+🔗 **Live App**: [https://student-report-h0r8.onrender.com](https://student-report-h0r8.onrender.com)
 
 ---
 
-## 🎯 Features
+## 🚀 Features
 
-- Input student name, roll number, and subject-wise marks
-- Automatically calculates average marks and grade
-- Generates a clean report card using Jinja2 templates
-- Optionally exports report card to `.txt`
-- Deployed and accessible online via Render
+- 📋 Add student name, roll number, subjects & marks
+- 🧮 Automatically calculates average & grade
+- ☁️ Stores data securely in MongoDB Atlas (cloud)
+- 🧾 Generates a clean, printable report card
+- 🔍 View all submitted student records
+- 💾 Deployable on Render or any cloud platform
 
 ---
 
 ## 🛠️ Tech Stack
 
-- **Backend:** Python, Flask  
-- **Frontend:** HTML, CSS (Jinja2 templating)  
-- **Deployment:** Render  
-- **Language:** Python 3.13  
+| Layer         | Tech Used             |
+|---------------|------------------------|
+| Backend       | Python, Flask          |
+| Frontend      | HTML, CSS, JS          |
+| Database      | MongoDB Atlas (NoSQL)  |
+| Deployment    | Render                 |
+| ORM / Driver  | PyMongo                |
 
 ---
 
