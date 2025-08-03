@@ -1,17 +1,25 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Report Card</title>
+  <meta charset="UTF-8">
+  <title>Report Card</title>
 </head>
 <body>
-    <h2>Report Card for {{ student.name }} (Roll: {{ student.roll }})</h2>
-    <ul>
-        {% for subject, mark in student.marks.items() %}
-            <li>{{ subject }}: {{ mark }}</li>
-        {% endfor %}
-    </ul>
-    <p>Average Marks: {{ average }}</p>
-    <p>Grade: {{ grade }}</p>
-    <a href="/">← Go back</a>
+  <h2>Report Card</h2>
+  <p><strong>Name:</strong> {{ student.name }}</p>
+  <p><strong>Roll Number:</strong> {{ student.roll }}</p>
+
+  <h4>Marks:</h4>
+  <ul>
+    {% for subject, mark in student.marks.items() %}
+      <li>{{ subject }}: {{ mark }}</li>
+    {% endfor %}
+  </ul>
+
+  <p><strong>Average:</strong> {{ student.average }}</p>
+  <p><strong>Grade:</strong> {{ student.grade }}</p>
+
+  <a href="/">Add Another Student</a> |
+  <a href="/students">View All Students</a>
 </body>
 </html>

@@ -1,17 +1,41 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Student Report Card</title>
+  <meta charset="UTF-8">
+  <title>Student Report Entry</title>
 </head>
 <body>
-    <h2>Enter Student Details</h2>
-    <form method="POST">
-        Name: <input type="text" name="name" required><br><br>
-        Roll Number: <input type="text" name="roll" required><br><br>
-        Subject: <input type="text" name="subject" required><br><br>
-        Marks: <input type="number" name="mark" required><br><br>
-        <button type="submit">Add Mark</button>
-    </form>
+  <h2>Student Report Card Form</h2>
+  <form action="/submit" method="POST">
+    <label>Name:</label>
+    <input type="text" name="name" required><br><br>
+
+    <label>Roll Number:</label>
+    <input type="text" name="roll" required><br><br>
+
+    <h4>Subjects and Marks</h4>
+
+    <div id="subjects">
+      <div>
+        <input type="text" name="subject" placeholder="Subject" required>
+        <input type="number" name="marks" placeholder="Marks" required>
+      </div>
+    </div>
+
+    <button type="button" onclick="addField()">Add More</button><br><br>
+    <button type="submit">Generate Report</button>
+  </form>
+
+  <script>
+    function addField() {
+      const container = document.getElementById("subjects");
+      const div = document.createElement("div");
+      div.innerHTML = `
+        <input type="text" name="subject" placeholder="Subject" required>
+        <input type="number" name="marks" placeholder="Marks" required>
+      `;
+      container.appendChild(div);
+    }
+  </script>
 </body>
 </html>
-

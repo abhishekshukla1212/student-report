@@ -1,61 +1,52 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request
+from pymongo import MongoClient
 
 app = Flask(__name__)
-students = []
 
-class Student:
-    def __init__(self, name, roll):
-        self.name = name
-        self.roll = roll
-        self.marks = {}
 
-    def add_mark(self, subject, mark):
-        self.marks[subject] = int(mark)
+client = MongoClient("mongodb+srv://Abhishek:Abhi%4012345@student-report.i3gmep4.mongodb.net/?retryWrites=true&w=majority&appName=student-report")
 
-    def calculate_average(self):
-        return sum(self.marks.values()) / len(self.marks) if self.marks else 0
+db = client["School"]
+students_collection = db["students"]
 
-    def get_grade(self):
-        avg = self.calculate_average()
-        if avg >= 90:
-            return 'A'
-        elif avg >= 80:
-            return 'B'
-        elif avg >= 70:
-            return 'C'
-        else:
-            return 'D'
-
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/')
 def index():
-    if request.method == 'POST':
-        name = request.form['name']
-        roll = request.form['roll']
-        subject = request.form['subject']
-        mark = request.form['mark']
+    return render_template("index.html")
 
-        # Check if student exists
-        student = next((s for s in students if s.roll == roll), None)
-        if not student:
-            student = Student(name, roll)
-            students.append(student)
+@app.route('/submit', methods=['POST'])
+def submit():
+    name = request.form['name']
+    roll = request.form['roll']
+    subjects = request.form.getlist('subject')
+    marks = request.form.getlist('marks')
 
-        student.add_mark(subject, mark)
-        return redirect(url_for('report', roll=roll))
-    return render_template('index.html')
+    marks_dict = dict(zip(subjects, map(int, marks)))
+    average = sum(marks_dict.values()) / len(marks_dict)
 
-@app.route('/report/<roll>')
-def report(roll):
-    student = next((s for s in students if s.roll == roll), None)
-    if not student:
-        return "Student not found", 404
+    if average >= 90:
+        grade = 'A'
+    elif average >= 80:
+        grade = 'B'
+    elif average >= 70:
+        grade = 'C'
+    else:
+        grade = 'D'
 
-    average = student.calculate_average()
-    grade = student.get_grade()
-    return render_template('report.html', student=student, average=average, grade=grade)
+    student_data = {
+        'name': name,
+        'roll': roll,
+        'marks': marks_dict,
+        'average': average,
+        'grade': grade
+    }
+
+    students_collection.insert_one(student_data)
+    return render_template("report.html", student=student_data)
+
+@app.route('/students')
+def view_all():
+    all_students = list(students_collection.find())
+    return render_template("students.html", students=all_students)
 
 if __name__ == '__main__':
-    import os
-    port = int(os.environ.get("PORT", 10000))
-    app.run(host="0.0.0.0", port=port)
-
+    app.run(debug=True)

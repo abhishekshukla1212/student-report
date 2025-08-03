@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>All Student Reports</title>
+</head>
+<body>
+  <h2>All Student Records</h2>
+  {% if students %}
+    <table border="1" cellpadding="8">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Roll</th>
+          <th>Subjects & Marks</th>
+          <th>Average</th>
+          <th>Grade</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for student in students %}
+        <tr>
+          <td>{{ student.name }}</td>
+          <td>{{ student.roll }}</td>
+          <td>
+            <ul>
+              {% for subject, mark in student.marks.items() %}
+              <li>{{ subject }}: {{ mark }}</li>
+              {% endfor %}
+            </ul>
+          </td>
+          <td>{{ student.average }}</td>
+          <td>{{ student.grade }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>No student data found.</p>
+  {% endif %}
+
+  <br>
+  <a href="/">← Go Back to Form</a>
+</body>
+</html>
